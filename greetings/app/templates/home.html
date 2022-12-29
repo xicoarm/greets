@@ -1,0 +1,118 @@
+<html>
+
+<head>
+  <title>Checkout</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  {% load static %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static 'main.js' %}"></script>
+
+</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django + Stripe Checkout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+</head>
+
+
+
+
+
+<form action="/pre-order/" method="POST">
+
+  {% csrf_token %}
+
+  <input type="email" id="email" name = "Email" required="requred"/> E-Mail-Adresse
+  <input type="text" id="name" name = "Name" required="requred"/> Vor- und Nachname
+
+  <input type="checkbox" id="Recipient_Check1" value="mother" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> mother
+  <input type="checkbox" id="Recipient_Check2" value="father" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> father
+  <input type="checkbox" id="Recipient_Check3" value="son" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> son
+  <input type="checkbox" id="Recipient_Check4" value="daughter" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> daughter
+  <input type="checkbox" id="Recipient_Check5" value="grandfather" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> grandfather
+  <input type="checkbox" id="Recipient_Check6" value="grandmother" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> grandmother
+  <input type="checkbox" id="Recipient_Check7" value="brother" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> brother
+  <input type="checkbox" id="Recipient_Check8" value="sister" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> sister
+  <input type="checkbox" id="Recipient_Check9" value="uncle" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> uncle
+  <input type="checkbox" id="Recipient_Check10" value="aunt" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> aunt
+  <input type="checkbox" id="Recipient_Check11" value="cousin" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> Male cousin
+
+  <input type="checkbox" id="Recipient_Check12" value="co_worker" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> co_worker
+  <input type="checkbox" id="Recipient_Check13" value="boss" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> boss
+
+  <input type="checkbox" id="Recipient_Check14" value="school colleague" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> school_colleague
+  <input type="checkbox" id="Recipient_Check15" value="teacher" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> teacher
+
+  <input type="checkbox" id="Recipient_Check16" value="male friend" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> friend_male
+  <input type="checkbox" id="Recipient_Check17" value="female friend" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> friend_female
+  <input type="checkbox" id="Recipient_Check18" value="best friend" onclick="selectOnlyThis(this.id)" name = "Recipient_Check"> bestfriend_male
+
+
+  <input type="checkbox" id="Text_Length1" value="200" onclick="selectOnlyThisTextLength(this.id)" name = "Text_Length"> Kurz
+  <input type="checkbox" id="Text_Length2" value="400" onclick="selectOnlyThisTextLength(this.id)" name = "Text_Length"> Mittel
+  <input type="checkbox" id="Text_Length3" value="800" onclick="selectOnlyThisTextLength(this.id)" name = "Text_Length"> Lang
+
+  <input type="submit" value="Submit">
+
+
+</form>
+
+
+</html>
+
+<script>
+
+
+
+function selectOnlyThis(id) {
+
+    if (document.getElementById(id).checked == false) {
+      document.getElementById(id).checked  = false;
+    }
+    else{
+    for (var i = 1; i <= 18; i++)
+    {
+        document.getElementById("Recipient_Check" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+}
+
+
+function selectOnlyThisTextLength(id) {
+
+    if (document.getElementById(id).checked == false) {
+      document.getElementById(id).checked  = false;
+    }
+    else{
+    for (var i = 1; i <= 3; i++)
+    {
+        document.getElementById("Text_Length" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+}
+
+
+
+function selectOnlyThisCategory(id) {
+
+    if (document.getElementById(id).checked == false) {
+      document.getElementById(id).checked  = false;
+    }
+    else{
+    for (var i = 2; i <= 8; i++)
+    {
+        document.getElementById("Category_Check" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+}
+
+
+
+
+
+</script>

@@ -1,0 +1,191 @@
+<html>
+
+<head>
+  <title>Checkout</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  {% load static %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static 'main.js' %}"></script>
+
+</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django + Stripe Checkout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://js.stripe.com/v3/"></script>  <!-- new -->
+    <script src="{% static 'main.js' %}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+  </head>
+
+
+
+<form>
+
+  {% csrf_token %}
+
+  <input type="email" id="email"  /> E-Mail-Adresse
+  <input type="text" id="name" /> Vor- und Nachname
+
+  <input type="checkbox" id="Recipient_Check1" value="mother" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> mother
+  <input type="checkbox" id="Recipient_Check2" value="father" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> father
+  <input type="checkbox" id="Recipient_Check3" value="son" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> son
+  <input type="checkbox" id="Recipient_Check4" value="daughter" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> daughter
+  <input type="checkbox" id="Recipient_Check5" value="grandfather" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> grandfather
+  <input type="checkbox" id="Recipient_Check6" value="grandmother" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> grandmother
+  <input type="checkbox" id="Recipient_Check7" value="brother" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> brother
+  <input type="checkbox" id="Recipient_Check8" value="sister" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> sister
+  <input type="checkbox" id="Recipient_Check9" value="uncle" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> uncle
+  <input type="checkbox" id="Recipient_Check10" value="aunt" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> aunt
+  <input type="checkbox" id="Recipient_Check11" value="cousin_male" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> Male cousin
+  <input type="checkbox" id="Recipient_Check12" value="cousin_female" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> Female cousin
+  <input type="checkbox" id="Recipient_Check13" value="other_family_member" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> Other family member
+
+  <input type="checkbox" id="Recipient_Check14" value="co_worker" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> co_worker
+  <input type="checkbox" id="Recipient_Check15" value="co_worker_male" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> co_worker_male
+  <input type="checkbox" id="Recipient_Check16" value="co_worker_female" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> co_worker_female
+  <input type="checkbox" id="Recipient_Check17" value="boss" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> boss
+
+  <input type="checkbox" id="Recipient_Check18" value="school_colleague" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> school_colleague
+  <input type="checkbox" id="Recipient_Check19" value="school_colleague_female" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> school_colleague_female
+  <input type="checkbox" id="Recipient_Check20" value="school_colleague_male" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> school_colleague_male
+  <input type="checkbox" id="Recipient_Check21" value="teacher" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> teacher
+
+  <input type="checkbox" id="Recipient_Check22" value="friend_male" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> friend_male
+  <input type="checkbox" id="Recipient_Check23" value="friend_female" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> friend_female
+  <input type="checkbox" id="Recipient_Check24" value="bestfriend_male" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> bestfriend_male
+  <input type="checkbox" id="Recipient_Check25" value="bestfriend_female" onclick="selectOnlyThis(this.id)" name = Recipient_Check/> bestfriend_female
+
+
+</form>
+
+  <section class="section">
+    <div class="container">
+      <button class="button is-primary" onclick="send_post()" id="submitBtn">Purchase!</button>
+    </div>
+  </section>
+
+
+<h1>Chatbot</h1>
+
+{% if response %}
+
+  <h2>Chatbot response:</h2>
+  <p>{{ response }}</p>
+
+{% endif %}
+
+
+
+</html>
+
+<script>
+
+
+
+function selectOnlyThis(id) {
+
+    if (document.getElementById(id).checked == false) {
+      document.getElementById(id).checked  = false;
+    }
+    else{
+    for (var i = 1; i <= 25; i++)
+    {
+        document.getElementById("Recipient_Check" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+}
+
+function selectOnlyThisCategory(id) {
+
+    if (document.getElementById(id).checked == false) {
+      document.getElementById(id).checked  = false;
+    }
+
+    else{
+
+
+    document.getElementById(id).checked = true;
+
+    var count = 0;
+
+    for (var i = 1; i <= 8; i++)
+    {
+
+        if (document.getElementById("Category_Check" + i).checked)
+        {
+          count = count + 1;
+        }
+
+    }
+
+    if (count > 2)
+    {
+       for (var i = 1; i <= 8; i++) {
+        document.getElementById("Category_Check" + i).checked = false;
+        }
+    }
+    }
+
+}
+
+
+window.addEventListener("load", () => {
+
+  function sendData() {
+    const XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    const FD = new FormData(form);
+
+    // Define what happens on successful data submission
+    XHR.addEventListener("load", (event) => {
+      alert(event.target.responseText);
+    });
+
+    // Define what happens in case of error
+    XHR.addEventListener("error", (event) => {
+      alert('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open("POST", "http://localhost:49749/happynewyear/submit.py");
+
+    // The data sent is what the user provided in the form
+    XHR.send(FD);
+  }
+
+  // Get the form element
+  const form = document.getElementById("myForm");
+
+  // Add 'submit' event handler
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    sendData();
+  });
+});
+
+
+function send_post() {
+
+var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+var element = document.getElementById(Recipient_Check1).checked;
+
+  fetch('/pre-order/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': $crf_token,
+    'data' : element,
+  }
+
+})
+
+
+}
+
+
+
+</script>
