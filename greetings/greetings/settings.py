@@ -29,8 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -73,6 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'greetings.wsgi.application'
 
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
