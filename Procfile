@@ -1,1 +1,3 @@
-web: gunicorn -w 4 -b 0.0.0.0:$PORT -k gevent main:app
+web: gunicorn django_project.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
