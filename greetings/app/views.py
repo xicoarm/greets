@@ -16,7 +16,7 @@ from django.http.response import JsonResponse  # new
 from django.views.decorators.csrf import csrf_exempt  # new
 from django.views.generic.base import TemplateView
 
-openai.api_key = "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"
+
 
 
 def index(request):
