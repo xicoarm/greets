@@ -27,6 +27,15 @@ SECRET_KEY = 'django-insecure-2aw^!e@!)lcx%do3na@qko%v%ybdi2(f)h6fhy@1a11u=ftnng
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+STATIC_URL = '/static/'
+
+if not DEBUG:
+    STATIC_ROOT = ''
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/'),
+]
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -71,8 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'greetings.wsgi.application'
 
-STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
