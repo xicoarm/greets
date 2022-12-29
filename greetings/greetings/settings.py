@@ -123,6 +123,7 @@ STATIC_URL = 'static/'
 #TODO
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51L2zmwKwkYYi9AWLs3j1XDMyPbaJxsKiSjNyVqoPbogcH6gVpHZc1FylmuOCnp3GV5wsZT5UriGz77YIRE86WiVH00bIL22Qwg'
 STRIPE_SECRET_KEY = 'sk_test_51L2zmwKwkYYi9AWLSIJsVOufhWiaJ9t3rL9cPufq26GT74DhaYZhzR7KbXIJt1xIUEMhj6ubmMXMSdFhgYvjTBZv00M5KxgZ8n'
+openai.api_key = "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"
 
 # for django >= 3.1
 
