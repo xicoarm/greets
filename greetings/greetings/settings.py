@@ -27,19 +27,6 @@ SECRET_KEY = 'django-insecure-2aw^!e@!)lcx%do3na@qko%v%ybdi2(f)h6fhy@1a11u=ftnng
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-import os
-ROOT_PATH = os.path.dirname(__file__)
-STATICFILES_DIRS = [os.path.join(ROOT_PATH, 'static')]
-STATIC_URL = '/static/'
-
-if not DEBUG:
-    STATIC_ROOT = ''
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
-]
-
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -95,7 +82,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -131,8 +118,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATICFILES_DIRS = [BASE_DIR / 'static']  # new
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 #TODO
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51L2zmwKwkYYi9AWLs3j1XDMyPbaJxsKiSjNyVqoPbogcH6gVpHZc1FylmuOCnp3GV5wsZT5UriGz77YIRE86WiVH00bIL22Qwg'
